@@ -1,0 +1,254 @@
+﻿@model List<NCSustainablity.Models.Survey>
+@{
+    ViewBag.Title = "Survey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    label#question1-error {
+        color: red !important;
+    }
+    label#question2-error {
+        color: red !important;
+    }
+    label#question3-error {
+        color: red !important;
+    }
+    label#question4-error {
+        color: red !important;
+    }
+    label#question5-error {
+        color: red !important;
+    }
+    label#question6-error {
+        color: red !important;
+    }
+    label#question7-error {
+        color: red !important;
+    }
+    label#question8-error {
+        color: red !important;
+    }
+    label#question9-error {
+        color: red !important;
+    }
+    label#question10-error {
+        color: red !important;
+    }
+</style>
+
+<section class="main-section" id="page-w">
+    <div class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="section-title col-12">
+                    <h2><span>Take </span>Survey</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contact-form">
+                        <form id="surveyform">
+                             <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-1 The work in the program is too heavy and includes a lot of pressure</label>
+                                        <input name="question1" type="text" class="form-control" placeholder="Question 1">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-2 The program is effective in enhancing team-working abilities</label>
+                                        <input name="question2" type="text" class="form-control" placeholder="Question 2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-3 The program administration is effective in supporting learning</label>
+                                        <input name="question3" type="text" class="form-control" placeholder="Question 3">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-4 The program is effective in developing analytic and problem solving skills</label>
+                                        <input name="question4" type="text" class="form-control" placeholder="Question 4">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-5 The program is effective in developing independent thinking</label>
+                                        <input name="question5" type="text" class="form-control" placeholder="Question 5">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-6 The program is effective in developing written communication skills</label>
+                                        <input name="question6" type="text" class="form-control" placeholder="Question 6">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-7 The program is effective in developing planning abilities</label>
+                                        <input name="question7" type="text" class="form-control" placeholder="Question 7">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-8 The mathematical content of the program is adequate for pursing the advanced courses in the program</label>
+                                        <input name="question8" type="text" class="form-control" placeholder="Question 8">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-9 The internship experience is effective in enhancing ability to work in teams</label>
+                                        <input name="question9" type="text" class="form-control" placeholder="Question 9">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <label>Q-10 The internship experience is effective in enhancing the ability to think independently</label>
+                                        <input name="question10" type="text" class="form-control" placeholder="Question 10">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <button type="button" id="finsish" class="btn btn-raised btn-round btn-primary">Finish Survey</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#surveyform').validate({
+            rules: {
+                question1: {
+                    required: true
+                },
+                question2: {
+                    required: true
+                },
+                question3: {
+                    required: true
+                },
+                question4: {
+                    required: true
+                },
+                question5: {
+                    required: true
+                },
+                question6: {
+                    required: true
+                },
+                question7: {
+                    required: true
+                },
+                question8: {
+                    required: true
+                },
+                question9: {
+                    required: true
+                },
+                question10: {
+                    required: true
+                }
+            },
+            messages: {
+                question1: {
+                    required: "Question1 is required"
+                },
+                question2: {
+                    required: "Question2 is required"
+                },
+                question3: {
+                    required: "Question3 is required"
+                },
+                question4: {
+                    required: "Question4 is required"
+                },
+                question5: {
+                    required: "Question5 is required"
+                },
+                question6: {
+                    required: "Question6 is required"
+                },
+                question7: {
+                    required: "Question7 is required"
+                },
+                question8: {
+                    required: "Question8 is required"
+                },
+                question9: {
+                    required: "Question9 is required"
+                },
+                question10: {
+                    required: "Question10 is required"
+                }
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $("#finsish").click(function () {
+        if ($("#surveyform").valid()) {
+            $('#page-w').loading('start');
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("AddEntry", "Index")'
+			})
+                .done(function (response) {
+                    if (response == "true") {
+                        $('#page-w').loading('stop');
+
+                        swal({
+                            title: "Success",
+                            text: "Thank you, the survey posted successfuly",
+                            icon: "success",
+                            buttons: true,
+                            dangerMode: false,
+                        });
+                        $("#surveyform")[0].reset();
+                    }
+                    else {
+                        $('#page-w').loading('stop');
+                        swal({
+                            title: "Warning",
+                            text: "Not Sent, Error: " + response,
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        });
+                    }
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				swal({
+                    title: "Warning",
+                    text: errorThrown,
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+                });
+                $('#page-w').loading('stop');
+			});
+        }    
+	});
+</script>
+

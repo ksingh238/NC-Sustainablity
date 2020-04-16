@@ -1,0 +1,93 @@
+﻿@model IEnumerable<NCSustainablity.Models.Post>
+@{
+    ViewBag.Title = "Blogs";
+}
+<section class="main-section blog-page">
+    <div class="container">
+        <div class="row">
+            <h3>Students Posts</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-12 left-box">
+                @{
+                    if (Model.Count() > 0)
+                    {
+                        foreach (var post in Model)
+                        {
+                            <div class="card single_post">
+                                <div class="card-body">
+                                    <h3 class="m-t-0 m-b-5">@post.Title</h3>
+                                    <ul class="meta">
+                                        <li><i class="zmdi zmdi-account col-blue"></i>Posted By: @post.Student.FName @post.Student.LName </li>
+                                        <li><i class="zmdi zmdi-label col-red"></i>@post.EventCategory.Name</li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="img-post m-b-15">
+                                        @if(!string.IsNullOrEmpty(post.ImageUrl))
+                                        {
+                                            <img class="d-block img-fluid" src="@post.ImageUrl">
+                                        }
+                                        else
+                                        {
+                                            <img class="d-block img-fluid" src="~/assets/images/placeholder.jpg">
+                                        }
+                                    </div>
+                                    <p>@post.Description</p>
+                                    <a href="#" title="read more" class="btn btn-round btn-info">Read More</a>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <h5>No Post(s) yet</h5>
+                    }
+                }
+            </div>
+            <div class="col-lg-4 col-md-12 right-box">
+                <div class="card">
+                    <div class="header">
+                        <h2><strong>Latest</strong> Posts</h2>
+                    </div>
+                    <div class="card-body widget popular-post">
+                        @{
+                            if (Model.Count() > 0)
+                            {
+                                var posts = Model.OrderByDescending(x => x.Date).Take(2).ToList();
+                                if (posts.Count > 0)
+                                {
+                                    foreach (var pst in posts)
+                                    {
+                                        <div class="single_post">
+                                            @if(!string.IsNullOrEmpty(pst.ImageUrl))
+                                            {
+                                                <div class="img-post m-b-5"><img src="@pst.ImageUrl"></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="img-post m-b-5"><img src="~/assets/images/placeholder.jpg"></div>
+                                            }
+                                            <p class="mb-0">@pst.Title</p>
+                                            <small>@pst.Date</small>
+                                        </div>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <h6>No Record</h6>
+                            }
+                        }
+                        @*<div class="single_post m-t-20">
+            <div class="img-post m-b-5"><img src="~/assets/images/blog/blog-page-4.jpg" alt="Awesome Image"></div>
+            <p class="mb-0">new rules, more cars, more races</p>
+            <small>Dec 20, 2017</small>
+        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,173 @@
+﻿<!doctype html>
+<html class="no-js " lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NC Sustainability</title>
+    <link rel="icon" href="favicon.ico"> <!-- start linking -->
+    <link rel="stylesheet" href="~/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/style.min.css">
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+</head>
+
+<body>
+
+    <div id="loading" class="page-loader-wrapper">
+        <div class="loader">
+            <div class="m-t-30"><img class="zmdi-hc-spin" src="~/assets/images/loader.svg" width="48" height="48" alt="Oreo"></div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="main_header">
+            <div id="top-nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="left">
+                                <ul class="list-unstyled m-b-0">
+                                    <li>
+                                        <a href="javascript:void(0);" class="btn btn-link">
+                                            @if(NCSustainablity.Models.GlobalData.IsLoggedIn())
+                                            {
+                                                <i class="zmdi m-r-5"><span class="text-success"><b>Loggedin as</b></span></i> @NCSustainablity.Models.GlobalData.GetEmail();
+                                            }
+                                            else
+                                            {
+                                                <span>Please click on login button</span>
+                                            }
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5">
+                            <div class="text-right">
+                                <ul class="list-unstyled m-b-0">
+                                    @{
+                                        if (NCSustainablity.Models.GlobalData.IsLoggedIn() == true)
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("Signout","Student")" class="btn">LogOut</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li> <a href="@Url.Action("Login","Account")" class="btn btn-link">SignIn</a> <a href="@Url.Action("Signup","Account")" class="btn btn-link">Register</a> </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <header id="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5 col-sm-5">
+                            <a href="@Url.Action("Index","Index")" class="navbar-brand"><img src="~/assets/images/logo.jpg" alt="logo"></a>
+                        </div>
+                        <div class="col-lg-7 col-sm-7">
+                            <div class="text-right">
+                                <p class="col-white m-b-0"><i class="zmdi zmdi-pin"></i> 100 Niagara College Boulevard, Welland, Ontario L3C 7L3 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div id="navbar">
+                <div class="container">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index","Index")">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Blogs","Index")">Student Blogs</a></li>
+                                <li class="nav-item"><a class="nav-link" href="@Url.Action("Events","Index")">Events </a></li>
+
+                                @if (NCSustainablity.Models.GlobalData.IsLoggedIn() == true)
+                                {
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Feedback","Index")">Give Feedback</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Posts","Index")">Your Posts</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Survey","Index")">Take a Survey</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Annoucments","Index")">Survey Announcements</a></li>
+                                    
+                                }
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        @RenderBody()
+        <!-- start footer -->
+        <footer id="footer">
+            <div class="container">
+               
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="fcard about">
+                            <h5 class="title">About NC Sustainability</h5>
+                            <p>
+                                Niagara College aspires to become a leader in sustainable development and a contributor to sustainability in the Niagara Region.
+                            </p>
+                            <div class="social">
+                                <a href="https://www.facebook.com/NiagaraCollegeSustainability/"><i class="zmdi zmdi-facebook m-r-10"></i></a>
+                                <a href="https://www.instagram.com/sustainabilitync/?hl=en "><i class="zmdi zmdi-instagram m-r-10"></i></a>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="fcard links">
+                            <h5 class="title">Usefull Links</h5>
+                            <div class="row">
+                                <div class="col-6">
+                                    <ul class="list-unstyled">
+                                        <li><a href="@Url.Action("Aboutus","Index")">About Us</a></li>
+
+                                        <li><a href="@Url.Action("Events","Index")">Events</a></li>
+
+                                        @*<li><a href="@Url.Action("Contact","Index")">Contact</a></li>*@
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="fcard contact links">
+                            <h5 class="title">Contact Details</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="zmdi zmdi-pin"></i>100 Niagara College Boulevard, Welland, Ontario L3C 7L3</li>
+                                <li><i class="zmdi zmdi-email"></i>sustainability@niagaracollege.ca.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+        </footer>
+    </div>
+
+    <!-- start screpting -->
+    <script src="~/assets/bundles/libscripts.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
+    <!-- my js -->
+    <script src="~/assets/js/app.js"></script>
+    <script src="~/assets/js/countTo.js"></script>
+    <script src="~/Scripts/jquery.countdown.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.loading.min.js"></script>
+
+</body>
+</html>

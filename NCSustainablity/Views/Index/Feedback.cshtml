@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+}
+
+<style>
+    label#name-error {
+        color: red !important;
+    }
+
+    label#email-error {
+        color: red !important;
+    }
+
+    label#description-error {
+        color: red !important;
+    }
+</style>
+
+<!-- Content Area -->
+<section class="main-section" id="page-w">
+    <!-- Contact Section -->
+    <div class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="section-title col-12">
+                    <h2>Feedback</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="contact-form">
+                        <form id="feedbackform">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" name="name" class="form-control" placeholder="Enter Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" name="email" class="form-control" placeholder="Enter Email">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 textarea">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="description" placeholder="Your Message.."></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <button type="button" id="feedbackbtn" class="btn btn-primary btn-round">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#feedbackform').validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                email: {
+                    required: true
+                },
+                description: {
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Title is required"
+                },
+                email: {
+                    required: "Description is required"
+                },
+                description: {
+                    required: "EventCategoryId is required"
+                }
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $("#feedbackbtn").click(function () {
+        if ($("#feedbackform").valid()) {
+            $('#page-w').loading('start');
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("Feedback", "Index")',
+                data: $("#feedbackform").serialize()
+			})
+                .done(function (response) {
+                    if (response == "true") {
+                        $('#page-w').loading('stop');
+
+                        swal({
+                            title: "Success",
+                            text: "Successfuly Submited",
+                            icon: "success",
+                            buttons: true,
+                            dangerMode: false,
+                        });
+                        $("#feedbackform")[0].reset();
+                    }
+                    else {
+                        $('#page-w').loading('stop');
+                        swal({
+                            title: "Warning",
+                            text: "Not Submit, Error: " + response,
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        });
+                    }
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				swal({
+                    title: "Warning",
+                    text: errorThrown,
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+                });
+                $('#page-w').loading('stop');
+			});
+        }
+    });
+</script>

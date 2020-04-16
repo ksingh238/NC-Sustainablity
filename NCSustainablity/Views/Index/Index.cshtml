@@ -1,0 +1,229 @@
+﻿@model IEnumerable<NCSustainablity.Models.Promotion>
+@{
+    ViewBag.Title = "Index";
+}
+<!-- start hero -->
+<section id="hero">
+
+    <div class="slider" style="background-image:url(/assets/images/NC-Silver-STARS-2.jpg)">
+        <div class="container">
+            <div class="slider_text">
+                <h3 class="title"><span>Welcome to</span> <br> NC  <strong>Sustainability </strong></h3>
+                <p class="sub-title">NC has been achieved a Silver Rating from the Association for the Advancement of Sustainability in Higher Education!</p><br>
+             
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Content Area -->
+<section class="main-section">
+    <!-- Home About Us Section -->
+    <div class="about-us-section">
+        <div class="container">
+            <div class="row">
+                <div class="section-title col-12">
+                    <h2><span>About </span>Us</h2>
+                    <p>As a post-secondary institution, Niagara College first made sustainability a key strategic priority in 2009 and has identified with the importance of reducing impacts on the environment. Niagara College’s definition of sustainability is based on the Bruntland Commission report, created by the United Nations (UN), Report of the World Commission on Environment and Development: Our Common Future. Through this report, sustainability and sustainable development is recognized as, “Sustainable development is development that meets the needs of the present without compromising the ability of future generations to meet their own needs.”</p>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-lg-5 col-sm-12">
+                    <div class="box-img img_hover_effect box-shadow m-b-20">
+                        <img src="~/assets/images/about-img.jpg" alt="" style="width: 100%;">
+                        <span class="section-line"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="common-cnt">
+                        <div class="section-top">
+                            <p><strong>NC Sustainability </strong> is it is a long established fact that a readerwill be distracted by the readable content.</p>
+                        </div>
+                        <p>
+                            Shortly after, the Sustainability Committee formed in 2011, with representation from academics, operations, student services, the Student Administrative Council, the student body, and other employees to drive initiatives that focused on improving campus sustainability. Since then, the Office of Sustainability was formed in January 2015 with the intention to continue and develop initiatives on campus and in the community
+                        </p>                        <ul class="list-unstyled">
+                            <li><i class="zmdi zmdi-graduation-cap"></i>Over 14 Million Students</li>
+                            <li><i class="zmdi zmdi-thumb-up"></i>More Than 30,000 Courses</li>
+                            <li><i class="zmdi zmdi-globe"></i>Learn Anything Online</li>
+                        </ul>
+                        <p> <a href="@Url.Action("Aboutus","Index")" class="btn btn-primary btn-simple btn-round margin-0">ViewMore</a> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Home Fun Fact -->
+    <div class="fun-fact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="fun-fact-box text-center">
+                        <i class="zmdi zmdi-account"></i> <span class="counter timer" data-from="0" data-to="652" data-speed="2500" data-fresh-interval="700">652</span>
+                        <p>CERTIFIED TEACHERS</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="fun-fact-box text-center">
+                        <i class="zmdi zmdi-favorite"></i> <span class="counter timer" data-from="0" data-to="7652" data-speed="2500" data-fresh-interval="700">7652</span>
+                        <p>FOREIGN FOLLOWERS</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="fun-fact-box text-center">
+                        <i class="zmdi zmdi-thumb-up"></i> <span class="counter timer" data-from="0" data-to="52" data-speed="2500" data-fresh-interval="700">52</span>
+                        <p>Years Of Experience</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="fun-fact-box text-center">
+                        <i class="zmdi zmdi-mood"></i> <span class="counter timer" data-from="0" data-to="7652" data-speed="2500" data-fresh-interval="700">7652</span>
+                        <p>Well Smiley Faces</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Event -->
+    <div class="upcoming-event">
+        <div class="container">
+            <div class="row">
+                <div class="section-title col-12">
+                    <h2><span>Upcoming </span>Event</h2>
+                    
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-lg-6 col-md-12">
+                    <div class="common-cnt">
+                        <div class="section-top">
+                            <p> ANNUAL MEET UP AND<br> SCHOLARSHIP<br> PRESENTATIONS </p>
+                        </div>
+                        <p class="date">29-APRIL-2018</p>
+                        <p class="address">Sayidan Street, Gondomanan, 8993,<br> orgainsed by Niagara College</p>
+                        <p><a href="@Url.Action("Events","Index")" class="btn btn-primary btn-lg btn-round">View More</a> </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="box-img box-shadow img_hover_effect"> <img src="~/assets/images/upcoming-img.jpg" alt=""> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Support -->
+    <!-- Home Blog -->
+    <div class="home-blog">
+        <div class="container">
+            <div class="row">
+                <div class="section-title col-12">
+                    <h2><span>Latest </span>From Blog</h2>
+                    <p></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog-box">
+                        <div class="blog-img img_hover_effect"> <img src="~/assets/images/blog-1.png" alt="" > </div>
+                        <div class="blog-cnt">
+                            <h5><a href="javascript:void(0);">A Roller Coaster of Emotions</a></h5>
+                            <p>By: Katie Bristow – Student Sustainability Technician While travelling around the wetlands this spring, we came across an unusual sight. A Hooded Merganser was swimming around the lagoons with her ducklings. Upon closer inspection, the ducklings consisted of five Hooded Mergansers, and three (of what we thought at the time) Mallard Ducks! After a few […]</p>
+                        </div>
+                        <div class="blog-info">
+                            <span class="blog-date"><i class="zmdi zmdi-calendar"></i> 02 Feb 2018</span>
+                            <span class="blog-comment"><i class="zmdi zmdi-comments"></i> Comment ( 25 )</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog-box">
+                        <div class="blog-img img_hover_effect"> <img src="~/assets/images/blog-2.png" alt=""> </div>
+                        <div class="blog-cnt">
+                            <h5><a href="javascript:void(0);">Student Blog: Jon’s First Week</a></h5>
+                            <p>
+                                By: Jon Banninga – Student Sustainability Technician This week, starting Monday, I began working as the sustainability technician at the NOTL Campus with the office of sustainability, alongside Amber, Christine and Katie. Besides Monday, which was dedicated to generic training modules and seminars, this week has already begun with some major projects and a variety […]
+                            </p>                        </div>
+                        <div class="blog-info">
+                            <span class="blog-date"><i class="zmdi zmdi-calendar"></i> 02 Feb 2018</span>
+                            <span class="blog-comment"><i class="zmdi zmdi-comments"></i>Comment ( 25 )</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 hidden-md-down">
+                    <div class="blog-box">
+                        <div class="blog-img img_hover_effect"> <img src="~/assets/images/blog-3.png" alt=""> </div>
+                        <div class="blog-cnt">
+                            <h5><a href="javascript:void(0);">Learning [Balti] MORE about Sustainability @@ AASHE 2016</a></h5>
+                            <p>Attending AASHE 2016 in Baltimore, Maryland was an experience I will forever be grateful for. The passion and excitement that these people shared over the weekend was motivating, inspiring and unforgettable. Main topics ranged from waste management, to student engagement, to community outreach and back to strategies for a greener campus. Participants came from a […]</p>
+                        </div>
+                        <div class="blog-info">
+                            <span class="blog-date"><i class="zmdi zmdi-calendar"></i> 02 Feb 2018</span>
+                            <span class="blog-comment"><i class="zmdi zmdi-comments"></i>Comment ( 25 )</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@{
+    if (Model.Count() > 0)
+    {
+        <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="title" id="defaultModalLabel">Promotions</h4>
+                    </div>
+                    <div class="modal-body">
+                        @{
+                            int i = 1;
+                            foreach (var evnt in Model)
+                            {
+                                <Hr />
+                                <p>Promotion: <b>@evnt.Offer</b></p>
+                                <p>Description: @evnt.Description </p>
+                                @*<p>Contact No: @evnt.ContactNo</p>*@
+                                <h5><b class="text-black" id="@evnt.Id"></b></h5>
+                                <script>
+                                     $(document).ready(function () {
+                                         $('#'+'@evnt.Id').countdown('@evnt.Date', function (event) {
+                                             var $this = $(this).html(event.strftime(''
+                                                 + '<span>%w</span> weeks '
+                                                 + '<span>%d</span> days '
+                                                 + '<span>%H</span> hr '
+                                                 + '<span>%M</span> min '
+                                                 + '<span>%S</span> sec'));
+                                         });
+                                         $('#defaultModal').modal('show');
+                                     });
+                                </script>
+                                i++;
+                            }
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary float-right" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @*if(NCSustainablity.Models.GlobalData.IsLoggedIn())
+    {
+        <script>
+            //function rC(nam) { var tC = document.cookie.split('; '); for (var i = tC.length - 1; i >= 0; i--) { var x = tC[i].split('='); if (nam == x[0]) return unescape(x[1]); } return '~'; } function wC(nam, val) { document.cookie = nam + '=' + escape(val); } function lC(nam, pg) { var val = rC(nam); if (val.indexOf('~' + pg + '~') != -1) return false; val += pg + '~'; wC(nam, val); return true; } function firstTime(cN) { return lC('pWrD4jBo', cN); } function thisPage() { var page = location.href.substring(location.href.lastIndexOf('\/') + 1); pos = page.indexOf('.'); if (pos > -1) { page = page.substr(0, pos); } return page; }
+
+            //// example code to call it - you may modify this as required
+            //function start() {
+            //    if (firstTime(thisPage())) {
+                    // this code only runs for first visit
+                   alert('“Thanks for visiting our website. This website is created for educational purpose and does not deal with any kind of commercial buisness. All information and images are taken from original source or captured as it is. “.');
+            //    }
+            //    // other code to run every time once page is loaded goes here
+            //}
+            //onload = start;
+        </script>
+    }*@
+}

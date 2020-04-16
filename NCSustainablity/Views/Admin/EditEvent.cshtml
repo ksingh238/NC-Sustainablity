@@ -1,0 +1,218 @@
+﻿@model NCSustainablity.ViewModels.GetEditEventViewModels
+@{
+    var imageURL = "";
+    ViewBag.Title = "Edit Event";
+    Layout = "~/Views/Shared/AdminHeader/headerfooter.cshtml";
+    if(string.IsNullOrEmpty(Model.Event.ImageURL))
+    {
+        imageURL = "/assets/images/placeholder.jpg";
+    }
+    else
+    {
+        imageURL = Model.Event.ImageURL;
+    }
+
+}
+
+<style>
+    label#Title-error {
+        color: red !important;
+    }
+
+    label#Date-error {
+        color: red !important;
+    }
+
+    label#Description-error {
+        color: red !important;
+    }
+
+    label#EventCategoryId-error {
+        color: red !important;
+    }
+</style>
+
+<section class="content profile-page" id="page-w">
+    <div class="block-header">
+        <div class="row">
+            <h2>
+                Update Event
+            </h2>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <form id="addeventform">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <input name="Title" type="text" class="form-control" value="@Model.Event.Title" placeholder="Event Title">
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="Date" type="date" class="form-control" value="@Model.Event.Date" placeholder="mm/dd/yyyy">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea rows="4" name="Description" class="form-control no-resize" placeholder="Description">@Model.Event.Description</textarea>
+                                    </div>
+                                    <select name="EventCategoryId" class="form-control show-tick">
+                                        <option value="">-- Category --</option>
+                                        @{
+                                            if (Model.EventCategories.Count() > 0)
+                                            {
+                                                foreach (var category in Model.EventCategories)
+                                                {
+                                                    if (category.Id == Model.Event.EventCategoryId)
+                                                    {
+                                                        <option selected value="@category.Id">@category.Name</option>
+                                                        continue;
+                                                    }
+                                                    <option value="@category.Id">@category.Name</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                    <br />
+                                    <br />
+                                    <div class="form-group">
+                                        <input type="hidden" id="ImageURL" value="@Model.Event.ImageURL" name="ImageURL" />
+                                        <input class="form-control" placeholder="Image Upload" id="imageUpload" name="Image" type="file" accept=".png, .jpg" />
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="btnaevent" class="btn btn-raised btn-round btn-primary">Update Event</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <div style="width:365px; height:220px;" class="event-img">
+                                            <img class="img-thumbnail img-fluid" id="productImage" src="@imageURL" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#addeventform').validate({
+            rules: {
+                Title: {
+                    required: true
+                },
+                Date: {
+                    required: true
+                },
+                Description: {
+                    required: true
+                },
+                EventCategoryId: {
+                    required: true
+                }
+            },
+            messages: {
+                Title: {
+                    required: "Title is required"
+                },
+                Title: {
+                    required: "Date is required"
+                },
+                Description: {
+                    required: "Description is required"
+                },
+                EventCategoryId: {
+                    required: "EventCategoryId is required"
+                }
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $("#imageUpload").change(function () {
+		var element = this;
+		var formData = new FormData();
+		var totalFiles = element.files.length;
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+        }
+        debugger
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("UploadImage", "Admin")',
+			dataType: 'json',
+			data: formData,
+			contentType: false,
+			processData: false
+		})
+        .done(function (response) {
+        	console.log(response);
+        	if (response.Success) {
+        		$("#ImageURL").val(response.ImageURL);
+        		$("#productImage").attr("src", response.ImageURL);
+        	}
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+    });
+
+    $("#btnaevent").click(function () {
+        if ($("#addeventform").valid()) {
+            $('#page-w').loading('start');
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("EditEvent", "Admin")',
+                data: $("#addeventform").serialize()
+			})
+                .done(function (response) {
+                    if (response == "true") {
+                        $('#page-w').loading('stop');
+
+                        swal({
+                            title: "Success",
+                            text: "Successfuly Updated",
+                            icon: "success",
+                            buttons: true,
+                            dangerMode: false,
+                        })
+                        .then(function () {
+                            window.location = '@Url.Action("Event","Admin")';
+                        });
+                        $("#addeventform")[0].reset();
+                    }
+                    else {
+                        $('#page-w').loading('stop');
+                        swal({
+                            title: "Warning",
+                            text: "Not Updated, Error: " + response,
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        });
+                    }
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				swal({
+                    title: "Warning",
+                    text: errorThrown,
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+                });
+                $('#page-w').loading('stop');
+			});
+        }
+            
+	});
+</script>
+

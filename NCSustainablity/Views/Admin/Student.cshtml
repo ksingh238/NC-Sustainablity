@@ -1,0 +1,119 @@
+﻿@model IEnumerable<NCSustainablity.Models.Student>
+@{
+    ViewBag.Title = "Student";
+    Layout = "~/Views/Shared/AdminHeader/headerfooter.cshtml";
+}
+
+<section class="content" id="page-w">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <h2>
+                    Manage Students
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="classlist">
+                        <div class="card">
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email</th>
+                                                <th>PhoneNo</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                if (Model.Count() > 0)
+                                                {
+                                                    int i = 1;
+                                                    foreach (var student in Model)
+                                                    {
+                                                        <tr>
+                                                            <td>@i</td>
+                                                            <td>@student.FName</td>
+                                                            <td>@student.LName</td>
+                                                            <td>@student.Email</td>
+                                                            <td>@student.PhoneNo</td>
+                                                            <td>
+                                                                <button data-id="@student.Id" class="dltbtn btn btn-sm btn-danger">
+                                                                    <i class="zmdi zmdi-delete" style="color:white;"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        i++;
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(".dltbtn").click(function () {
+		swal({
+			title: "Confirm?",
+			text: "Are you sure you want to delete?",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+            if (willDelete) {
+                $('#page-w').loading('start');
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Action("DeleteStudent", "Admin")',
+					data: {
+						Id: $(this).attr('data-id')
+					}
+				})
+                .done(function (response) {
+                    $('#page-w').loading('stop');
+                    if (response == "true") {
+                        swal("Record deleted Successfully.", {
+                            icon: "success",
+                            buttons: true,
+                        })
+                        .then(function(){
+                            window.location = "@Url.Action("Student", "Admin")";
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Warning",
+                            text: "Not Deleted " + response,
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        });
+                    }
+                 })
+				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    $('#page-w').loading('stop');
+					alert("FAIL");
+				});
+
+			}
+		});
+	});
+</script>

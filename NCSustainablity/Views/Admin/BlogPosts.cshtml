@@ -1,0 +1,143 @@
+﻿@model IEnumerable<NCSustainablity.Models.Post>
+@{
+    ViewBag.Title = "BlogPosts";
+    Layout = "~/Views/Shared/AdminHeader/headerfooter.cshtml";
+}
+
+<section class="content">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <h2>
+                    Manage Student Blog Posts
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="classlist">
+                        <div class="card">
+                            <div class="body">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Image</th>
+                                            <th>Title</th>
+                                            <th>Date</th>
+                                            <th>Description</th>
+                                            <th>Category Name</th>
+                                            <th>Student Name</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="page-w">
+                                        @{
+                                            if (Model.Count() > 0)
+                                            {
+                                                int i = 1;
+                                                foreach (var post in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@i</td>
+                                                        @if (!string.IsNullOrEmpty(post.ImageUrl))
+                                                        {
+                                                            <td><img width="100" height="80" src="@post.ImageUrl" /></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td><img width="100" height="80" src="~/assets/images/placeholder.jpg" /></td>
+                                                        }
+                                                        <td>@post.Title</td>
+                                                        <td>@post.Date</td>
+                                                        <td>@post.Description</td>
+                                                        @{
+                                                            if (post.EventCategory != null)
+                                                            {
+                                                                <td>@post.EventCategory.Name</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td></td>
+                                                            }
+
+                                                            if(post.Student != null)
+                                                            {
+                                                                <td>@post.Student.FName @post.Student.LName</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td></td>
+                                                            }
+                                                        }
+                                                        <td>
+                                                            <select data-id="@post.Id" class="p-s-change">
+                                                                <option value="">--Change Status--</option>
+                                                                <option value="1">Approve</option>
+                                                                <option value="2">Reject</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(".p-s-change").on("change", function () {
+        var val = $(this).val();
+        if (val.length > 0) {
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("ChangeStatus", "Admin")',
+                data: {
+                    Id: $(this).attr('data-id'),
+                    status: $(this).val()
+                }
+			})
+            .done(function (response) {
+                if (response == "true") {
+                    swal({
+                        title: "Information",
+                        text: "Status Successfuly Updated",
+                        icon: "success",
+                        buttons: true,
+                        dangerMode: false,
+                    });
+                }
+                else {
+                    swal({
+                        title: "Warning",
+                        text: "Not Updated, Error: " + response,
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    });
+                }
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				swal({
+                    title: "Warning",
+                    text: errorThrown,
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+                });
+			});
+        }  
+	});
+</script>

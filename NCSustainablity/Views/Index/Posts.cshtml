@@ -1,0 +1,150 @@
+﻿@model IEnumerable<NCSustainablity.Models.Post>
+@{
+    ViewBag.Title = "Posts";
+}
+
+<section class="content">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-7 col-md-6 col-sm-12">
+                <h2>
+                    Manage Posts
+                </h2>
+                <h5 class="float-right"><a href="@Url.Action("AddPost","Index")">Add New Post</a></h5>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="classlist">
+                        <div class="card">
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Image</th>
+                                                <th>Title</th>
+                                                <th>Description</th>
+                                                <th>Category Name</th>
+                                                <th>Approval Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                if (Model.Count() > 0)
+                                                {
+                                                    int i = 1;
+                                                    foreach (var post in Model)
+                                                    {
+                                                        <tr>
+                                                            <td>@i</td>
+                                                            @if (!string.IsNullOrEmpty(post.ImageUrl))
+                                                            {
+                                                                <td><img width="100" height="80" src="@post.ImageUrl" /></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td><img width="100" height="80" src="~/assets/images/placeholder.jpg" /></td>
+                                                            }
+                                                            <td>@post.Title</td>
+                                                            <td>@post.Description</td>
+                                                            @{
+                                                                if (post.EventCategory != null)
+                                                                {
+                                                                    <td>@post.EventCategory.Name</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td></td>
+                                                                }
+
+                                                                if(post.ApprovalStatus == 0)
+                                                                {
+                                                                    <td><span class="text-primary"></span>Pending</td>
+                                                                }
+                                                                else if(post.ApprovalStatus == 1)
+                                                                {
+                                                                    <td><span class="text-success">Post Approved</span></td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td><span class="text-danger">Post Not Approved</span></td>
+                                                                }
+                                                            }
+                                                            <td>
+                                                                <a class="btn btn-sm btn-warning" href="@Url.Action("EditPost","Index",new {Id=post.Id})"><i class="zmdi zmdi-edit" style="color:white;"></i></a>
+                                                                <button data-id="@post.Id" class="dltbtn btn btn-sm btn-danger">
+                                                                    <i class="zmdi zmdi-delete" style="color:white;"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        i++;
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    $(".dltbtn").click(function () {
+		swal({
+			title: "Confirm?",
+			text: "Are you sure you want to delete?",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+            if (willDelete) {
+                $('#page-w').loading('start');
+                debugger
+				$.ajax({
+					type: 'POST',
+					url: '@Url.Action("DeletePost", "Index")',
+					data: {
+						Id: $(this).attr('data-id')
+					}
+				})
+                .done(function (response) {
+                    $('#page-w').loading('stop');
+                    if (response == "true") {
+                        swal("Record deleted Successfully.", {
+                            icon: "success",
+                            buttons: true,
+                        });
+                        setTimeout(function () { window.location.replace("@Url.Action("Posts", "Index")"); }, 1500);
+                    }
+                    else {
+                        swal({
+                            title: "Warning",
+                            text: "Not Deleted " + response,
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        });
+                    }
+                 })
+				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    $('#page-w').loading('stop');
+					alert("FAIL");
+				});
+
+			}
+		});
+	});
+</script>

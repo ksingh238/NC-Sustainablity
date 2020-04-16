@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Add Category";
+    Layout = "~/Views/Shared/AdminHeader/headerfooter.cshtml";
+}
+
+
+<style>
+    label#Name-error {
+        color: red !important;
+    }
+</style>
+
+<section class="content profile-page" id="page-w">
+    <div class="block-header">
+        <div class="row">
+            <h2>
+                Add Category
+            </h2>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <form id="addcategoryform">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <input name="Name" type="text" class="form-control" placeholder="Category Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <button type="button" id="btnaddcategory" class="btn btn-raised btn-round btn-primary">Add Category</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#addcategoryform').validate({
+            rules: {
+                Name: {
+                    required: true
+                },
+            },
+            messages: {
+                Name: {
+                    required: "Category Name is required"
+                }
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $("#btnaddcategory").click(function () {
+        if ($("#addcategoryform").valid()) {
+            $('#page-w').loading('start');
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("AddCategory", "Admin")',
+                data: $("#addcategoryform").serialize()
+			})
+                .done(function (response) {
+                    if (response == "true") {
+                        $('#page-w').loading('stop');
+
+                        swal({
+                            title: "Success",
+                            text: "Successfuly Added",
+                            icon: "success",
+                            buttons: true,
+                            dangerMode: false,
+                        });
+                        $("#addcategoryform")[0].reset();
+                    }
+                    else {
+                        $('#page-w').loading('stop');
+                        swal({
+                            title: "Warning",
+                            text: "Not Added, Error: " + response,
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        });
+                    }
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				swal({
+                    title: "Warning",
+                    text: errorThrown,
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+                });
+                $('#page-w').loading('stop');
+			});
+        }
+    });
+</script>
+

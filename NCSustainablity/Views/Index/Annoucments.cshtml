@@ -1,0 +1,56 @@
+﻿@model  List<NCSustainablity.Models.Survey>
+@{
+    ViewBag.Title = "Annoucments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="main-section" id="page-w">
+    <div class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="section-title col-12">
+                    <h2><span>Winners</span> of Survey</h2>
+                    <br />
+                    <h5>A mail has been sent to all winners please check your inbox.</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contact-form">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Student Name</th>
+                                            <th>Student Emai</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            if (Model.Count() > 0)
+                                            {
+                                                int i = 1;
+                                                foreach (var post in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@i</td>
+                                                        <td>@post.Student.FName @post.Student.LName</td>
+                                                        <td>@post.Student.Email</td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

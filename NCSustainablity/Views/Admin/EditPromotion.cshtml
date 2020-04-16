@@ -1,0 +1,174 @@
+﻿@model NCSustainablity.Models.Promotion
+@{
+    ViewBag.Title = "EditPromotion";
+    Layout = "~/Views/Shared/AdminHeader/headerfooter.cshtml";
+}
+
+<style>
+    label#offer-error {
+        color: red !important;
+    }
+
+    label#Description-error {
+        color: red !important;
+    }
+
+    label#contactno-error {
+        color: red !important;
+    }
+
+    label#Date-error {
+        color: red !important;
+    }
+
+    label#Status-error {
+        color: red !important;
+    }
+</style>
+
+<section class="content profile-page" id="page-w">
+    <div class="block-header">
+        <div class="row">
+            <h2>
+                Edit Promotion
+            </h2>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="body">
+                        <form id="promotionform">
+                            <div class="row clearfix">
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <input name="offer" class="form-control" value="@Model.Offer" placeholder="Offer Title" />
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea rows="4" name="Description" class="form-control no-resize" placeholder="Description">@Model.Description</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="contactno" class="form-control" value="@Model.ContactNo" placeholder="Contact Number" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="Date" type="text" class="form-control" value="@Model.Date" placeholder="mm/dd/yyyy">
+                                    </div>
+                                    <select name="Status" class="form-control show-tick">
+                                        <option value="">--Status--</option>
+                                        @{
+                                            if (Model.Status == 1)
+                                            {
+                                                <option selected value="1">Active</option>
+                                                <option value="0">InActive</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="1">Active</option>
+                                                <option selected value="0">InActive</option>
+                                            }
+                                        }
+                                    </select>
+                                    <br />
+                                    <br />
+
+                                    <div class="form-group">
+                                        <button type="button" id="btnadd" class="btn btn-raised btn-round btn-primary">Update Promotion</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#promotionform').validate({
+            rules: {
+                offer: {
+                    required: true
+                },
+                Description: {
+                    required: true
+                },
+                contactno: {
+                    required: true
+                },
+                Date: {
+                    required: true
+                },
+                Status: {
+                    required: true
+                }
+            },
+            messages: {
+                offer: {
+                    required: "Offer is required"
+                },
+                Description: {
+                    required: "Description is required"
+                },
+                contactno: {
+                    required: "Contact No is required"
+                },
+                Date: {
+                    required: "Date is required"
+                },
+                Status: {
+                    required: "Status is required"
+                }
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $("#btnadd").click(function () {
+        if ($("#promotionform").valid()) {
+            $('#page-w').loading('start');
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("EditPromotion", "Admin")',
+           data: $("#promotionform").serialize()
+		})
+        .done(function (response) {
+            if (response == "true") {
+                $('#page-w').loading('stop');
+                swal({
+                    title: "Success",
+                    text: "Successfuly Updated",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: false,
+                });
+                $("#promotionform")[0].reset();
+            }
+            else {
+                $('#page-w').loading('stop');
+                swal({
+                    title: "Warning",
+                    text: "Not Updated, Error: " + response,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                });
+            }
+		})
+		.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+			swal({
+               title: "Warning",
+               text: errorThrown,
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+           });
+           $('#page-w').loading('stop');
+	    });
+        }
+	});
+</script>
